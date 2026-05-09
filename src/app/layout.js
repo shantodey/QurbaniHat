@@ -1,5 +1,9 @@
+import dns from "node:dns";
+dns.setServers(['8.8.8.8','8.8.4.4']);
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navber from "@/component/shared/Navber";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +27,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Navber></Navber>
         {children}
         </body>
     </html>
