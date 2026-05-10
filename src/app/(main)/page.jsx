@@ -1,13 +1,11 @@
-import Navber from '@/component/shared/Navber';
 import React from 'react';
 
-const MainLayout = ({children}) => {
+const page = () => {
     return (
-        <>
-        <Navber></Navber>
-        {children}
-        </>
+        <div>
+            hi
+        </div>
     );
 };
 
-export default MainLayout;
+export default page;
