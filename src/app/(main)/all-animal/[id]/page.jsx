@@ -4,7 +4,7 @@ import { allAnimalId } from '@/lib/data';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import React from 'react';
-import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShoppingCart, FaShieldAlt, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShieldAlt, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
 const Page = async ({ params }) => {
   const { id } = await params;
@@ -24,9 +24,8 @@ const Page = async ({ params }) => {
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-          {/* LEFT COLUMN */}
+
           <div className="flex flex-col gap-4">
-            {/* Image Card */}
             <div className="card bg-base-100 shadow-xl overflow-hidden">
               <figure className="relative">
                 <img
@@ -42,7 +41,7 @@ const Page = async ({ params }) => {
               </figure>
             </div>
 
-            {/* About Card */}
+
             <div className="card bg-base-100 shadow-md">
               <div className="card-body">
                 <h3 className="card-title text-base-content">
@@ -53,67 +52,47 @@ const Page = async ({ params }) => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="flex flex-col gap-5">
 
-            {/* Verified Badge */}
+          <div className="flex flex-col gap-5">
             <div>
               <span className="badge badge-outline badge-success gap-2 py-3 px-4 text-sm font-semibold">
-                <FaShieldAlt className="w-4 h-4" />
-                VERIFIED HEALTHY
-              </span>
+                <FaShieldAlt className="w-4 h-4" /> VERIFIED HEALTHY </span>
             </div>
 
-            {/* Name & Location */}
             <div>
-              <h1 className="text-4xl font-extrabold text-base-content leading-tight">
-                {animal.name}
-              </h1>
+              <h1 className="text-4xl font-extrabold text-base-content leading-tight">  {animal.name}</h1>
               <div className="flex items-center gap-1 mt-2 text-base-content/60">
                 <FaMapMarkerAlt className="w-4 h-4" />
                 <span className="text-sm">{animal.location}, Bangladesh</span>
               </div>
             </div>
 
-            {/* Price Box */}
             <div className="card bg-base-100 shadow-sm border border-base-300">
               <div className="card-body py-4 px-5">
-                <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase">
-                  Fixed Price
-                </p>
-                <p className="text-4xl font-black text-base-content">
-                  ৳{animal.price.toLocaleString()}
-                </p>
+                <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase"> Fixed Price</p>
+                <p className="text-4xl font-black text-base-content">৳{animal.price.toLocaleString()} </p>
               </div>
             </div>
 
-            {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-3">
-              {/* Weight */}
               <div className="card bg-base-100 border border-base-300 shadow-sm">
                 <div className="card-body py-4 px-5 gap-1">
                   <FaWeightHanging className="w-5 h-5 text-base-content/60" />
-                  <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase mt-1">
-                    Weight
-                  </p>
+                  <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase mt-1"> Weight </p>
                   <p className="text-xl font-bold text-base-content">{animal.weight} kg</p>
                 </div>
               </div>
 
-              {/* Age */}
               <div className="card bg-base-100 border border-base-300 shadow-sm">
                 <div className="card-body py-4 px-5 gap-1">
                   <FaCalendarAlt className="w-5 h-5 text-base-content/60" />
-                  <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase mt-1">
-                    Age
-                  </p>
+                  <p className="text-xs font-semibold tracking-widest text-base-content/50 uppercase mt-1">  Age</p>
                   <p className="text-xl font-bold text-base-content">
                     {animal.age} {animal.age === 1 ? 'Year' : 'Years'}
                   </p>
                 </div>
               </div>
 
-              {/* Breed */}
               <div className="card bg-base-100 border border-base-300 shadow-sm col-span-2">
                 <div className="card-body py-4 px-5 gap-1">
                   <FaDna className="w-5 h-5 text-base-content/60" />
@@ -128,8 +107,7 @@ const Page = async ({ params }) => {
             <BookAnimal  animal={animal}></BookAnimal>
             :
 
-            <Link className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none" href={'/login'}><FaCheckCircle className="w-5 h-5" />
-                                      Log IN to  Confirm Booking</Link>
+            <Link className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none" href={'/login'}><FaCheckCircle className="w-5 h-5" />Log IN to  Confirm Booking</Link>
           }
 
             <div className="flex items-center justify-center gap-2 text-base-content/50 text-sm">

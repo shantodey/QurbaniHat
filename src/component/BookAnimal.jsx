@@ -12,7 +12,6 @@ const BookAnimal = ({ animal }) => {
     }
     return (
         <>
-
             <button
                 onClick={() => document.getElementById('booking_modal').showModal()}
                 className="btn btn-success btn-lg w-full text-white text-base font-bold gap-2 rounded-xl"
@@ -20,7 +19,6 @@ const BookAnimal = ({ animal }) => {
                 <FaShoppingCart className="w-5 h-5" />
                 Book This Animal
             </button>
-
 
             <dialog id="booking_modal" className="modal">
                 <div className="modal-box p-0 overflow-hidden max-w-md rounded-3xl">
@@ -46,10 +44,8 @@ const BookAnimal = ({ animal }) => {
                         </p>
                     </div>
 
-                    {/* Form Body */}
-                    <div className="bg-white px-6 py-6 flex flex-col gap-4">
 
-                        {/* Full Name + Email Row */}
+                    <div className="bg-white px-6 py-6 flex flex-col gap-4">
                         <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-col gap-1">
                                 <label className="text-xs font-bold text-base-content flex items-center gap-1">
@@ -74,7 +70,7 @@ const BookAnimal = ({ animal }) => {
                             </div>
                         </div>
 
-                        {/* Phone Number */}
+
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-bold text-base-content flex items-center gap-1">
                                 <FaPhone className="text-[#1a3a2a]" /> Phone Number
@@ -86,7 +82,7 @@ const BookAnimal = ({ animal }) => {
                             />
                         </div>
 
-                        {/* Delivery Address */}
+
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-bold text-base-content flex items-center gap-1">
                                 <FaMapMarkerAlt className="text-[#1a3a2a]" /> Delivery Address
@@ -98,7 +94,7 @@ const BookAnimal = ({ animal }) => {
                             />
                         </div>
 
-                        {/* Total Amount */}
+
                         <div className="flex items-center justify-between bg-[#f5f5f0] rounded-2xl px-5 py-3">
                             <span className="text-sm text-base-content/60">Total Amount:</span>
                             <span className="text-2xl font-black text-base-content">
@@ -106,16 +102,13 @@ const BookAnimal = ({ animal }) => {
                             </span>
                         </div>
 
-                        {/* Confirm Button */}
                         <button  onClick={conFormBooking} className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none">
-                            
                             <FaCheckCircle className="w-5 h-5" />
                             Confirm Booking
                         </button>
                     </div>
                 </div>
 
-                {/* Backdrop close */}
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
