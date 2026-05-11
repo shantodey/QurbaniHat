@@ -22,7 +22,7 @@ Project Preview
 
 ## 🎯 Project Purpose
 
-QurbaniHat is a halal livestock marketplace designed for Qurbani animal booking. Users can browse verified animals, check detailed information such as breed, weight, age, price, and location, and place a booking through a protected route after login.
+QurbaniHat is a halal livestock marketplace designed for Qurbani animal booking. Users can browse verified animals, check detailed information such as breed, weight, age, price, and location, and place a booking after login.
 
 This project was created as part of Assignment Category: category-A8-Pineapple.
 
@@ -32,29 +32,28 @@ This project was created as part of Assignment Category: category-A8-Pineapple.
 
 - Fully responsive design for mobile, tablet, and desktop
 - Modern livestock marketplace UI
-- Firebase email/password authentication
+- Email/password authentication with Better Auth
 - Google social login
 - Protected private routes
 - Dynamic animal details page
 - Booking form with success toast
-- Booking form resets after successful submission
 - Animal price sorting feature
 - My Profile page for logged-in users
 - Update profile information feature
-- Loading state while fetching data
 - Custom 404 Not Found page
-- Environment variables for Firebase security
-- Lottie animation integration
+- Environment variables for authentication configuration
 - Clean and reusable component structure
 
 ---
 
 ## 🛠️ Tech Stack
 
+- Next.js
 - React
 - Tailwind CSS
-- Firebase
-- Vercel
+- DaisyUI
+- Better Auth
+- MongoDB
 - JavaScript
 - HTML
 - CSS
@@ -65,13 +64,16 @@ This project was created as part of Assignment Category: category-A8-Pineapple.
 
 | Package | Purpose |
 | --- | --- |
-| react-router-dom | Routing and private routes |
-| firebase | Authentication and user profile management |
-| react-toastify | Toast notifications |
-| react-icons | Icons |
-| lottie-react | Lottie animation |
+| next | Framework for React application |
+| react | UI library |
+| react-dom | React DOM rendering |
 | tailwindcss | Utility-first CSS framework |
-| daisyui | Prebuilt Tailwind CSS components |
+| daisyui | Tailwind CSS component library |
+| better-auth | Authentication handling |
+| @better-auth/mongo-adapter | MongoDB adapter for Better Auth |
+| mongodb | MongoDB database driver |
+| react-hot-toast | Toast notifications |
+| react-icons | SVG icons |
 
 ---
 
@@ -81,11 +83,10 @@ This project was created as part of Assignment Category: category-A8-Pineapple.
 | --- | --- |
 | Home | Landing page with hero, featured animals, Qurbani tips, and top breeds |
 | All Animals | Displays all livestock with sorting option |
-| Animal Details | Private route with full animal details and booking form |
+| Animal Details | Animal detail page with booking option |
 | Login | User login with email/password and Google |
 | Register | User registration with name, email, photo URL, and password |
-| My Profile | Shows logged-in user information |
-| Update Profile | Allows user to update name and profile image |
+| Profile | Shows logged-in user information and profile update option |
 | Not Found | Custom 404 error page |
 
 ---
@@ -97,8 +98,8 @@ This project was created as part of Assignment Category: category-A8-Pineapple.
 - Login with Google
 - Logout functionality
 - Conditional navbar based on authentication status
-- Protected private routes
-- User profile update using Firebase authentication
+- Private profile route
+- User profile update via Better Auth
 
 ---
 
@@ -128,16 +129,13 @@ Example:
 
 ## 🔒 Environment Variables
 
-Create a `.env.local` file in the root directory and add your Firebase configuration:
+Create a `.env.local` file in the root directory and add your authentication configuration values:
 
 ```env
-apiKey="AIzaSyA19L6DGmBO8ZmqGvnEycmO9Fj1wvz3s90"
-authDomain="qurbanihaat.firebaseapp.com"
-projectId="qurbanihaat"
-storageBucket="qurbanihaat.firebasestorage.app"
-messagingSenderId="159665285621"
-appId="1:159665285621:web:c1250c7c186e413634d8bc"
-measurementId="G-1QHMLTQ37G"
+AUTH_DB_URL="your_mongodb_connection_string"
+BETTER_AUTH_URL="your_api_base_url"
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
 ```
 
 Make sure `.env.local` is added to `.gitignore`.
@@ -149,15 +147,14 @@ Make sure `.env.local` is added to `.gitignore`.
 ### Public Routes
 
 - `/`
-- `/animals`
+- `/all-animal`
 - `/login`
 - `/register`
 
 ### Private Routes
 
-- `/details-page/:id`
-- `/my-profile`
-- `/update-profile`
+- `/all-animal/[id]`
+- `/profile`
 
 ### Error Route
 
@@ -191,20 +188,7 @@ npm run dev
 
 ## 🚀 Deployment
 
-This project is deployed using Vercel.
-
-To prevent route reload errors in a single-page application, add a `vercel.json` file:
-
-```json
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
-```
+This project can be deployed using Vercel or another compatible hosting provider.
 
 ---
 
@@ -222,7 +206,7 @@ To prevent route reload errors in a single-page application, add a `vercel.json`
      - New image URL
 
 3. **Extra NPM Package**
-   - Implemented Lottie React for animation to make the UI more engaging and modern.
+   - Implemented `react-hot-toast` for toast notifications
 
 ---
 
@@ -231,19 +215,17 @@ To prevent route reload errors in a single-page application, add a `vercel.json`
 - Home page loads correctly
 - All Animals page displays at least 6 animals
 - Sort by price works properly
-- Details page is protected
+- Details page shows animal details
 - Login works with email and password
 - Register works with email and password
 - Google login works
 - Logout works
 - Booking form shows success toast
-- Booking form resets after submit
 - My Profile page shows user data
 - Update Profile page updates user info
 - Navbar changes based on login status
 - 404 page works
 - Website is responsive on mobile, tablet, and desktop
-- Page reload does not show route error after deployment
 
 ---
 
@@ -251,8 +233,8 @@ To prevent route reload errors in a single-page application, add a `vercel.json`
 
 **Shanto Dey**
 
-GitHub: shohag
-Email: contact.devshohag@gmail.com
+GitHub: shantodey
+
 
 ---
 
