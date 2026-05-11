@@ -1,12 +1,5 @@
-import {
-  FaCheckCircle,
-  FaBalanceScale,
-  FaHandshake,
-  FaCalendarCheck
-} from "react-icons/fa";
-
+import {FaCheckCircle, FaBalanceScale, FaHandshake,FaCalendarCheck} from "react-icons/fa";
 const Tips = () => {
-
   const tipsData = [
     {
       id: 1,
@@ -36,19 +29,10 @@ const Tips = () => {
 
   return (
     <section className="bg-base-200 py-16 lg:py-24">
-
       <div className="container mx-auto px-4">
-
         <div className="mx-auto mb-12 max-w-2xl text-center">
-
-          <span className="mb-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-[#0B3B2E]">
-            Qurbani Guide
-          </span>
-
-          <h2 className="text-4xl font-black text-[#032B22] lg:text-5xl">
-            Qurbani Preparation Tips
-          </h2>
-
+          <span className="mb-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-[#0B3B2E]">  Qurbani Guide </span>
+          <h2 className="text-4xl font-black text-[#032B22] lg:text-5xl">   Qurbani Preparation Tips</h2>
           <p className="mt-4 text-lg leading-8 text-gray-500">  Important things to check before booking your Qurbani animal. </p>
         </div>
 
