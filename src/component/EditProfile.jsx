@@ -19,25 +19,17 @@ const EditProfile = ({ user }) => {
             {
                 onSuccess: (ctx) => {
                     router.refresh()
+                    toast.success('Successfully Updated')
                 },
                 onError: (ctx) => {
                     alert(ctx.error.message);
                 },
             }
         );
-
         document.getElementById('edit_profile_modal').close()
+
     }
-    const conFormBooking=()=>{
-        toast.promise(
-            saveSettings(settings),
-            {
-                loading: 'Saving...',
-                success: <b>Settings saved!</b>,
-                error: <b>Could not save.</b>,
-            }
-        );
-    }
+
 
     return (
         <div>
@@ -91,7 +83,7 @@ const EditProfile = ({ user }) => {
                             >
                                 Cancel
                             </button>
-                            <button onClick={conFormBooking} type="submit" className="btn btn-neutral">
+                            <button type="submit" className="btn btn-neutral">
                                 Save changes
                             </button>
                         </div>
