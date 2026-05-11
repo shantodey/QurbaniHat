@@ -12,7 +12,6 @@ const page = async() => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 auto-rows-fr ">
                 {allAnimalsData.map((animal) => (
-                    
                     <AnimalCard key={animal.id} animal={animal}></AnimalCard>
                 ))}
             </div>

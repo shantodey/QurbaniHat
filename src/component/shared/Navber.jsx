@@ -1,8 +1,18 @@
-
+'use client'
 import logo from '@/assets/logo.png'
+import { signOut, useSession } from '@/lib/auth-client';
+
 import Image from "next/image";
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 const Navber = () => {
+    const { data: session, } = useSession()
+    const user = session?.user;
+    const router=useRouter()
+    const handleSignOut = async() => {
+        await signOut()
+        router.push('/')
+    }
 
     return (
         <>
@@ -26,14 +36,24 @@ const Navber = () => {
                                 <li><button><Link href={'/all-animal'}>All Animal</Link>  </button></li>
                             </ul>
                         </div>
+
                         <div className="navbar-end">
                             <ul className="menu menu-horizontal px-1">
-                                <li>
-                                    <button>
-                                        <Link href={'/login'}>Login</Link>
-                                    </button>
-                                </li>
-                                <li><button><Link href={'/register'}>Register</Link></button></li>
+                                {user ?
+                                    <li className='flex-row'>
+                                        <Link className='capitalize' href={'/profile'}>{user.name}</Link>
+                                        <button onClick={handleSignOut}>
+                                            Logout
+                                        </button>
+                                    </li>
+                                    :
+                                    <li>
+                                        <button>
+                                            <Link href={'/login'}>Login</Link>
+                                        </button>
+                                    </li>
+                                }
+
                             </ul>
                         </div>
                     </div>

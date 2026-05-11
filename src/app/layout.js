@@ -1,10 +1,11 @@
 import dns from "node:dns";
-dns.setServers(['8.8.8.8','8.8.4.4']);
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navber from "@/component/shared/Navber";
 import Footer from "@/component/Footer";
+import { Toaster } from "react-hot-toast";
 
 
 const geistSans = Geist({
@@ -32,9 +33,12 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <Navber></Navber>
         {children}
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
 
-
-        </body>
+      </body>
 
     </html>
   );

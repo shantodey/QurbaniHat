@@ -1,6 +1,34 @@
-import React from 'react';
+'use client'
+
+import { authClient } from '@/lib/auth-client';
+
 
 const LoginPage = () => {
+        const handelSubmit = async (e) => {
+            e.preventDefault()
+            const formData = new FormData(e.target)
+            const userData = Object.fromEntries(formData)
+            console.log(userData);
+    
+            const { data, error } = await authClient.signIn.email(
+                {
+                email: userData.email,
+                password: userData.password,
+                callbackURL: "/"
+                },
+                {
+    
+                    onSuccess: (ctx) => {
+                        alert('its work ')
+                    },
+                    onError: (ctx) => {
+                        // display the error message
+                        alert(ctx.error.message);
+                    },
+                }
+            );
+    
+        }
     return (
               <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mb-6">
@@ -17,7 +45,7 @@ const LoginPage = () => {
  
                 <h2 className="text-center text-gray-600 mb-8 text-lg">Login to your account</h2>
  
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={handelSubmit}>
                     <fieldset>
                         <legend className="sr-only">Login Form</legend>
  
@@ -27,6 +55,7 @@ const LoginPage = () => {
                             </label>
                             <input
                                 type="email"
+                                name='email'
                                 placeholder="you@example.com"
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />
@@ -38,6 +67,7 @@ const LoginPage = () => {
                             </label>
                             <input
                                 type="password"
+                                name='password'
                                 placeholder="••••••••"
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />

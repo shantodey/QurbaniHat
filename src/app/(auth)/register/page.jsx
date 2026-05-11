@@ -1,8 +1,40 @@
 'use client';
- 
+
+import { authClient } from '@/lib/auth-client';
 import React from 'react';
- 
+
 const RegisterPage = () => {
+
+
+    const handelSubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const userData = Object.fromEntries(formData)
+        console.log(userData);
+
+        const { data, error } = await authClient.signUp.email(
+            {
+            email: userData.email,
+            password: userData.password,
+            image:userData.image,
+            name: userData.name,
+            callbackURL: "/"
+            },
+            {
+
+                onSuccess: (ctx) => {
+                    alert('its work ')
+                },
+                onError: (ctx) => {
+                    // display the error message
+                    alert(ctx.error.message);
+                },
+            }
+        );
+
+    }
+
+
     return (
         <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#FFF8E7' }}>
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
@@ -16,19 +48,20 @@ const RegisterPage = () => {
                     </div>
                     <h1 className="text-2xl font-bold" style={{ color: '#0F5132' }}>Qurbanie</h1>
                 </div>
- 
+
                 <h2 className="text-center mb-8 text-lg" style={{ color: '#1F2937' }}>Create your account</h2>
- 
-                <form className="space-y-5">
+
+                <form className="space-y-5" onSubmit={handelSubmit}>
                     <fieldset>
                         <legend className="sr-only">Account Creation Form</legend>
- 
+
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: '#1F2937' }}>
                                 Full Name
                             </label>
                             <input
                                 type="text"
+                                name='name'
                                 placeholder="Your full name"
                                 className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition"
                                 style={{ borderColor: '#D1D5DB', borderWidth: '1px', color: '#1F2937' }}
@@ -36,13 +69,29 @@ const RegisterPage = () => {
                                 onBlur={(e) => e.target.style.boxShadow = 'none'}
                             />
                         </div>
- 
+
+                        <div>
+                            <label className="block text-sm font-semibold mb-2" style={{ color: '#1F2937' }}>
+                                Image URL
+                            </label>
+                            <input
+                                type="text"
+                                name='image'
+                                placeholder="Your full name"
+                                className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition"
+                                style={{ borderColor: '#D1D5DB', borderWidth: '1px', color: '#1F2937' }}
+                                onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #198754'}
+                                onBlur={(e) => e.target.style.boxShadow = 'none'}
+                            />
+                        </div>
+
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: '#1F2937' }}>
                                 Email Address
                             </label>
                             <input
                                 type="email"
+                                name='email'
                                 placeholder="you@example.com"
                                 className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition"
                                 style={{ borderColor: '#D1D5DB', borderWidth: '1px', color: '#1F2937' }}
@@ -50,7 +99,7 @@ const RegisterPage = () => {
                                 onBlur={(e) => e.target.style.boxShadow = 'none'}
                             />
                         </div>
- 
+
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: '#1F2937' }}>
                                 Password
@@ -58,6 +107,7 @@ const RegisterPage = () => {
                             <input
                                 type="password"
                                 placeholder="••••••••"
+                                name='password'
                                 className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition"
                                 style={{ borderColor: '#D1D5DB', borderWidth: '1px', color: '#1F2937' }}
                                 onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #198754'}
@@ -65,21 +115,9 @@ const RegisterPage = () => {
                             />
                             <p className="text-xs mt-1" style={{ color: '#6B7280' }}>At least 6 characters</p>
                         </div>
- 
-                        <div>
-                            <label className="block text-sm font-semibold mb-2" style={{ color: '#1F2937' }}>
-                                Confirm Password
-                            </label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition"
-                                style={{ borderColor: '#D1D5DB', borderWidth: '1px', color: '#1F2937' }}
-                                onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #198754'}
-                                onBlur={(e) => e.target.style.boxShadow = 'none'}
-                            />
-                        </div>
- 
+
+
+
                         <button
                             type="submit"
                             className="w-full text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 mt-6"
@@ -94,7 +132,7 @@ const RegisterPage = () => {
                         </button>
                     </fieldset>
                 </form>
- 
+
                 <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
                         <div className="w-full" style={{ borderTopColor: '#D1D5DB', borderTopWidth: '1px' }}></div>
@@ -103,7 +141,7 @@ const RegisterPage = () => {
                         <span className="px-2 bg-white" style={{ color: '#1F2937' }}>or</span>
                     </div>
                 </div>
- 
+
                 <button
                     type="button"
                     className="w-full font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2"
@@ -116,7 +154,7 @@ const RegisterPage = () => {
                     </svg>
                     Sign up with Google
                 </button>
- 
+
                 <div className="text-center mt-6">
                     <p className="text-sm" style={{ color: '#1F2937' }}>
                         Already have an account?{' '}
@@ -129,6 +167,5 @@ const RegisterPage = () => {
         </div>
     );
 };
- 
+
 export default RegisterPage;
- 

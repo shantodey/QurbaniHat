@@ -1,10 +1,19 @@
+import BookAnimal from '@/component/BookAnimal';
+import { auth } from '@/lib/auth';
 import { allAnimalId } from '@/lib/data';
+import { headers } from 'next/headers';
+import Link from 'next/link';
 import React from 'react';
-import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShoppingCart, FaShieldAlt, FaInfoCircle } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShoppingCart, FaShieldAlt, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
 const Page = async ({ params }) => {
   const { id } = await params;
   const animal = await allAnimalId(id);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = session?.user;
 
   const categoryColor = animal.category === 'Large Animal'
     ? 'badge-warning'
@@ -115,14 +124,14 @@ const Page = async ({ params }) => {
                 </div>
               </div>
             </div>
+            {user?
+            <BookAnimal  animal={animal}></BookAnimal>
+            :
 
-            {/* Book Button */}
-            <button className="btn btn-success btn-lg w-full text-white text-base font-bold gap-2 rounded-xl">
-              <FaShoppingCart className="w-5 h-5" />
-              Book This Animal
-            </button>
+            <Link className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none" href={'/login'}><FaCheckCircle className="w-5 h-5" />
+                                      Log IN to  Confirm Booking</Link>
+          }
 
-            {/* Security Note */}
             <div className="flex items-center justify-center gap-2 text-base-content/50 text-sm">
               <FaShieldAlt className="w-4 h-4" />
               <span>Secure payment &amp; farm verification guaranteed</span>
