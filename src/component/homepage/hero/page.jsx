@@ -2,6 +2,8 @@ import Image from "next/image";
 import { CiStar } from "react-icons/ci";
 import { SiTicktick } from "react-icons/si";
 import hero from'@/assets/hero.png'
+import Link from "next/link";
+import { IoIosArrowRoundForward } from "react-icons/io";
 const HeroSection = () => {
     return (
         <section className="relative overflow-hidden bg-[#F7F8F3]">
@@ -23,13 +25,10 @@ const HeroSection = () => {
 
                         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
 
-                            <button className="btn h-14 rounded-2xl border-0 bg-[#0B3B2E] px-8 text-white hover:bg-[#14532D]">
+                            <Link href={'/all-animal'} className="btn h-14 rounded-2xl border-0 bg-[#0B3B2E] px-8 text-white hover:bg-[#14532D]">
                                 Browse Animals
-
-                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </button>
+                                <IoIosArrowRoundForward className="h-5 w-5" />
+                            </Link>
 
                             <button className="btn h-14 rounded-2xl border-2 border-[#0B3B2E] bg-transparent px-8 text-[#0B3B2E] hover:bg-[#0B3B2E] hover:text-white">
                                 Qurbani Tips

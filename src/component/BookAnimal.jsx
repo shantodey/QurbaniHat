@@ -1,5 +1,7 @@
 'use client'
 import { useSession } from '@/lib/auth-client';
+import Image from 'next/image';
+import logo from '@/assets/og.png'
 import toast from 'react-hot-toast';
 import { FaShoppingCart, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle, FaTimes } from 'react-icons/fa';
 
@@ -30,16 +32,12 @@ const BookAnimal = ({ animal }) => {
                             </button>
                         </form>
 
-                        {/* Logo */}
                         <div className="flex items-center justify-center gap-2 mb-4">
-                            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-lg">
-                                🐄
-                            </div>
-                            <span className="text-2xl font-bold tracking-wide">Qurbani<span className="text-green-400">.</span></span>
+                            <Image  src={logo}  alt='logo'  height={100} width={220}  priority /> 
                         </div>
 
                         <p className="text-white/80 text-sm leading-snug">
-                            Complete the form to confirm your booking for{' '}
+                            Complete the form to confirm your <br /> booking for{' '}
                             <span className="text-white font-semibold">{animal.name}</span>
                         </p>
                     </div>
@@ -72,7 +70,7 @@ const BookAnimal = ({ animal }) => {
 
 
                         <div className="flex flex-col gap-1">
-                            <label className="text-xs font-bold text-base-content flex items-center gap-1">
+                            <label className="text-xs font-bold text-base-content flex items-center gap-1" >
                                 <FaPhone className="text-[#1a3a2a]" /> Phone Number
                             </label>
                             <input

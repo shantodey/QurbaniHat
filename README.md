@@ -1,36 +1,261 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QurbaniHat - Livestock Booking Platform
 
-## Getting Started
+**Author:** Shanto Dey 🐄
 
-First, run the development server:
+A modern and responsive livestock booking platform where users can explore halal Qurbani animals such as cows, goats, and bulls, view details, and place bookings after authentication.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🌐 Live Site
+
+- **Live URL:** QurbaniHat Live Site
+
+## 📂 GitHub Repository
+
+- **Repository:** QurbaniHat GitHub Repo
+
+## 📸 Preview
+
+Project Preview
+
+---
+
+## 🎯 Project Purpose
+
+QurbaniHat is a halal livestock marketplace designed for Qurbani animal booking. Users can browse verified animals, check detailed information such as breed, weight, age, price, and location, and place a booking through a protected route after login.
+
+This project was created as part of Assignment Category: category-A8-Pineapple.
+
+---
+
+## 🚀 Key Features
+
+- Fully responsive design for mobile, tablet, and desktop
+- Modern livestock marketplace UI
+- Firebase email/password authentication
+- Google social login
+- Protected private routes
+- Dynamic animal details page
+- Booking form with success toast
+- Booking form resets after successful submission
+- Animal price sorting feature
+- My Profile page for logged-in users
+- Update profile information feature
+- Loading state while fetching data
+- Custom 404 Not Found page
+- Environment variables for Firebase security
+- Lottie animation integration
+- Clean and reusable component structure
+
+---
+
+## 🛠️ Tech Stack
+
+- React
+- Tailwind CSS
+- Firebase
+- Vercel
+- JavaScript
+- HTML
+- CSS
+
+---
+
+## 📦 NPM Packages Used
+
+| Package | Purpose |
+| --- | --- |
+| react-router-dom | Routing and private routes |
+| firebase | Authentication and user profile management |
+| react-toastify | Toast notifications |
+| react-icons | Icons |
+| lottie-react | Lottie animation |
+| tailwindcss | Utility-first CSS framework |
+| daisyui | Prebuilt Tailwind CSS components |
+
+---
+
+## 📄 Main Pages
+
+| Page | Description |
+| --- | --- |
+| Home | Landing page with hero, featured animals, Qurbani tips, and top breeds |
+| All Animals | Displays all livestock with sorting option |
+| Animal Details | Private route with full animal details and booking form |
+| Login | User login with email/password and Google |
+| Register | User registration with name, email, photo URL, and password |
+| My Profile | Shows logged-in user information |
+| Update Profile | Allows user to update name and profile image |
+| Not Found | Custom 404 error page |
+
+---
+
+## 🔐 Authentication Features
+
+- Register with name, email, photo URL, and password
+- Login with email and password
+- Login with Google
+- Logout functionality
+- Conditional navbar based on authentication status
+- Protected private routes
+- User profile update using Firebase authentication
+
+---
+
+## 🐂 Animal Data Structure
+
+The project uses a local JSON file containing livestock data.
+
+Example:
+
+```json
+{
+  "id": 1,
+  "name": "Deshi Shahi Cow",
+  "type": "Cow",
+  "breed": "Local Deshi",
+  "price": 120000,
+  "weight": 280,
+  "age": 3,
+  "location": "Bogura",
+  "description": "Healthy deshi cow suitable for Qurbani. Well fed with natural খাবার.",
+  "image": "https://i.postimg.cc/example-cow1.jpg",
+  "category": "Large Animal"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🔒 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root directory and add your Firebase configuration:
 
-## Learn More
+```env
+apiKey="AIzaSyA19L6DGmBO8ZmqGvnEycmO9Fj1wvz3s90"
+authDomain="qurbanihaat.firebaseapp.com"
+projectId="qurbanihaat"
+storageBucket="qurbanihaat.firebasestorage.app"
+messagingSenderId="159665285621"
+appId="1:159665285621:web:c1250c7c186e413634d8bc"
+measurementId="G-1QHMLTQ37G"
+```
 
-To learn more about Next.js, take a look at the following resources:
+Make sure `.env.local` is added to `.gitignore`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧭 Routes
 
-## Deploy on Vercel
+### Public Routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/`
+- `/animals`
+- `/login`
+- `/register`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Private Routes
+
+- `/details-page/:id`
+- `/my-profile`
+- `/update-profile`
+
+### Error Route
+
+- `*`
+
+---
+
+## 📱 Responsive Design
+
+The website is fully responsive and optimized for:
+
+- Mobile devices
+- Tablets
+- Laptops
+- Desktop screens
+
+---
+
+## ⚙️ Local Installation
+
+Follow these steps to run the project locally:
+
+```bash
+git clone https://github.com/your-username/qurbanihat.git
+cd qurbanihat
+npm install
+npm run dev
+```
+
+---
+
+## 🚀 Deployment
+
+This project is deployed using Vercel.
+
+To prevent route reload errors in a single-page application, add a `vercel.json` file:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+---
+
+## 📌 Challenges Implemented
+
+1. **My Profile**
+   - Logged-in users can view their profile information including:
+     - Name
+     - Email
+     - Profile image
+
+2. **Update Information**
+   - Users can update their profile information using:
+     - New name
+     - New image URL
+
+3. **Extra NPM Package**
+   - Implemented Lottie React for animation to make the UI more engaging and modern.
+
+---
+
+## 🧪 Testing Checklist
+
+- Home page loads correctly
+- All Animals page displays at least 6 animals
+- Sort by price works properly
+- Details page is protected
+- Login works with email and password
+- Register works with email and password
+- Google login works
+- Logout works
+- Booking form shows success toast
+- Booking form resets after submit
+- My Profile page shows user data
+- Update Profile page updates user info
+- Navbar changes based on login status
+- 404 page works
+- Website is responsive on mobile, tablet, and desktop
+- Page reload does not show route error after deployment
+
+---
+
+## 👨‍💻 Author
+
+**Shanto Dey**
+
+GitHub: shohag
+Email: contact.devshohag@gmail.com
+
+---
+
+## 📜 License
+
+This project is created for educational purposes as part of a programming assignment.
