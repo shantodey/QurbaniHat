@@ -23,7 +23,7 @@ const Navber = () => {
                         <div className="navbar-center hidden lg:flex">
                             <ul className="menu menu-horizontal px-1">
                                 <li><button> <Link href={'/'}>Home</Link></button></li>
-                                <li><button>Item 3</button></li>
+                                <li><button><Link href={'/all-animal'}>All Animal</Link>  </button></li>
                             </ul>
                         </div>
                         <div className="navbar-end">
@@ -41,13 +41,6 @@ const Navber = () => {
                     <div className="collapse-content lg:hidden z-1">
                         <ul className="menu">
                             <li><button>Item 1</button></li>
-                            <li>
-                                <button>Parent</button>
-                                <ul>
-                                    <li><button>Submenu 1</button></li>
-                                    <li><button>Submenu 2</button></li>
-                                </ul>
-                            </li>
                             <li><button>Item 3</button></li>
                         </ul>
                     </div>

@@ -1,9 +1,8 @@
-import fs from 'fs/promises';
-import path from 'path';
+import data from'@/assets/animal.json';
+ export const allAnimal= async()=>{
+    return data
+ }
 
-export async function allAnimal() {
-    const filePath = path.join(process.cwd(), 'public', 'animal.json');
-    const file = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(file);
-    return data; 
-}
+ export const allAnimalId= async(id) => {
+    return data.find(i=>i.id===Number(id))
+ }

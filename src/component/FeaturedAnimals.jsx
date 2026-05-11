@@ -19,7 +19,7 @@ const FeaturedAnimals = async () => {
         ))}
       </div>
         <div className="pt-5 text-center">
-          <Link href={''} className="btn btn-active btn-primary"> View all the Animal <span><RiArrowRightWideLine /></span> </Link>
+          <Link href={'/all-animal'} className="btn btn-active btn-primary"> View all the Animal <span><RiArrowRightWideLine /></span> </Link>
         </div>
     </section>
   );

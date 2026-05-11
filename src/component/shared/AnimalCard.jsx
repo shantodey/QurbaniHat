@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CiLocationOn } from "react-icons/ci";
 const AnimalCard = ({ animal }) => {
-  const { name, price, type, weight, image, location, breed } = animal;
+  const { name, price, type, weight, image, location, breed,id } = animal;
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] bg-white shadow-2xl transition-all duration-300 hover:-translate-y-1 ">
@@ -43,9 +44,9 @@ const AnimalCard = ({ animal }) => {
           <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Price</p>
           <div className="flex items-end justify-between">
             <span className="text-2xl font-bold text-slate-800">৳ {price}</span>
-            <button className="text-sm font-bold text-slate-800 hover:underline">
+            <Link href={`/all-animal/${id}`} className="text-sm font-bold text-slate-800 hover:underline">
               View Details
-            </button>
+            </Link>
           </div>
         </div>
       </div>
