@@ -1,9 +1,11 @@
 'use client'
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { FaUserEdit } from "react-icons/fa";
 
 const EditProfile = ({ user }) => {
-    const router=useRouter()
+    const router = useRouter()
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -16,7 +18,6 @@ const EditProfile = ({ user }) => {
             },
             {
                 onSuccess: (ctx) => {
-                    alert('its work ')
                     router.refresh()
                 },
                 onError: (ctx) => {
@@ -27,6 +28,16 @@ const EditProfile = ({ user }) => {
 
         document.getElementById('edit_profile_modal').close()
     }
+    const conFormBooking=()=>{
+        toast.promise(
+            saveSettings(settings),
+            {
+                loading: 'Saving...',
+                success: <b>Settings saved!</b>,
+                error: <b>Could not save.</b>,
+            }
+        );
+    }
 
     return (
         <div>
@@ -34,7 +45,7 @@ const EditProfile = ({ user }) => {
                 onClick={() => document.getElementById('edit_profile_modal').showModal()}
                 className="btn btn-sm btn-neutral gap-2"
             >
-                ✏️ Edit profile
+                <FaUserEdit /> Edit profile
             </button>
 
             <dialog id="edit_profile_modal" className="modal modal-bottom sm:modal-middle">
@@ -80,7 +91,7 @@ const EditProfile = ({ user }) => {
                             >
                                 Cancel
                             </button>
-                            <button type="submit" className="btn btn-neutral">
+                            <button onClick={conFormBooking} type="submit" className="btn btn-neutral">
                                 Save changes
                             </button>
                         </div>

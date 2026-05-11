@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+
+.backgorun__green{
+    background-color: #013023;
+}

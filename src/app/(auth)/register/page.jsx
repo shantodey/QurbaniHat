@@ -2,7 +2,9 @@
 
 import { authClient } from '@/lib/auth-client';
 import React from 'react';
-
+import Image from 'next/image';
+import Logo from '@/assets/og.png'
+import { FcGoogle } from 'react-icons/fc';
 const RegisterPage = () => {
 
 
@@ -14,11 +16,11 @@ const RegisterPage = () => {
 
         const { data, error } = await authClient.signUp.email(
             {
-            email: userData.email,
-            password: userData.password,
-            image:userData.image,
-            name: userData.name,
-            callbackURL: "/"
+                email: userData.email,
+                password: userData.password,
+                image: userData.image,
+                name: userData.name,
+                callbackURL: "/"
             },
             {
 
@@ -33,20 +35,19 @@ const RegisterPage = () => {
         );
 
     }
-
+    const handelGoogleSingin = async() => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#FFF8E7' }}>
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-4">
-                        <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="24" cy="24" r="22" stroke="#0F5132" strokeWidth="2" />
-                            <path d="M24 12C28.4183 12 32 15.5817 32 20C32 24.4183 28.4183 28 24 28C19.5817 28 16 24.4183 16 20C16 15.5817 19.5817 12 24 12Z" fill="#0F5132" />
-                            <path d="M14 34C14 30.6863 18.0294 28 24 28C29.9706 28 34 30.6863 34 34V36H14V34Z" fill="#0F5132" />
-                        </svg>
+                <div className="text-center">
+                    <div className="flex justify-center ">
+                        <Image src={Logo} height={100} alt='logo'></Image>
                     </div>
-                    <h1 className="text-2xl font-bold" style={{ color: '#0F5132' }}>Qurbanie</h1>
                 </div>
 
                 <h2 className="text-center mb-8 text-lg" style={{ color: '#1F2937' }}>Create your account</h2>
@@ -144,14 +145,13 @@ const RegisterPage = () => {
 
                 <button
                     type="button"
+                    onClick={handelGoogleSingin}
                     className="w-full font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2"
                     style={{ borderColor: '#D1D5DB', borderWidth: '2px', color: '#1F2937' }}
                     onMouseEnter={(e) => e.target.style.borderColor = '#198754'}
                     onMouseLeave={(e) => e.target.style.borderColor = '#D1D5DB'}
                 >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24">
-                        <text x="12" y="16" fontSize="14" fontWeight="bold" textAnchor="middle" fill="#1F2937">G</text>
-                    </svg>
+                    <FcGoogle />
                     Sign up with Google
                 </button>
 

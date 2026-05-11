@@ -1,54 +1,57 @@
 'use client'
 
 import { authClient } from '@/lib/auth-client';
-
+import Image from 'next/image';
+import Logo from '@/assets/og.png'
+import { IoLogInOutline } from 'react-icons/io5';
+import { FcGoogle } from 'react-icons/fc';
 
 const LoginPage = () => {
-        const handelSubmit = async (e) => {
-            e.preventDefault()
-            const formData = new FormData(e.target)
-            const userData = Object.fromEntries(formData)
-            console.log(userData);
-    
-            const { data, error } = await authClient.signIn.email(
-                {
+    const handelSubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const userData = Object.fromEntries(formData)
+        console.log(userData);
+
+        const { data, error } = await authClient.signIn.email(
+            {
                 email: userData.email,
                 password: userData.password,
                 callbackURL: "/"
+            },
+            {
+
+                onSuccess: (ctx) => {
+                    alert('its work ')
                 },
-                {
-    
-                    onSuccess: (ctx) => {
-                        alert('its work ')
-                    },
-                    onError: (ctx) => {
-                        // display the error message
-                        alert(ctx.error.message);
-                    },
-                }
-            );
-    
+                onError: (ctx) => {
+                    // display the error message
+                    alert(ctx.error.message);
+                },
+            }
+        );
+
+    }
+     const handelGoogleSingin = async() => {
+            const data = await authClient.signIn.social({
+                provider: "google",
+            });
         }
     return (
-              <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mb-6">
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-4">
-                        <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="24" cy="24" r="22" stroke="#1a4d3e" strokeWidth="2"/>
-                            <path d="M24 12C28.4183 12 32 15.5817 32 20C32 24.4183 28.4183 28 24 28C19.5817 28 16 24.4183 16 20C16 15.5817 19.5817 12 24 12Z" fill="#1a4d3e"/>
-                            <path d="M14 34C14 30.6863 18.0294 28 24 28C29.9706 28 34 30.6863 34 34V36H14V34Z" fill="#1a4d3e"/>
-                        </svg>
+                <div className="text-center">
+                    <div className="flex justify-center">
+                        <Image src={Logo} height={100} alt='logo'></Image>
                     </div>
-                    <h1 className="text-2xl font-bold text-gray-900">Qurbanie</h1>
                 </div>
- 
+
                 <h2 className="text-center text-gray-600 mb-8 text-lg">Login to your account</h2>
- 
+
                 <form className="space-y-5" onSubmit={handelSubmit}>
                     <fieldset>
                         <legend className="sr-only">Login Form</legend>
- 
+
                         <div>
                             <label className="block text-sm font-semibold text-gray-800 mb-2">
                                 Email Address
@@ -60,7 +63,7 @@ const LoginPage = () => {
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />
                         </div>
- 
+
                         <div>
                             <label className="block text-sm font-semibold text-gray-800 mb-2">
                                 Password
@@ -72,19 +75,17 @@ const LoginPage = () => {
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />
                         </div>
- 
-                        <button 
+
+                        <button
                             type="submit"
                             className="w-full bg-emerald-900 hover:bg-emerald-950 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 mt-6"
                         >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M3 8a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                            </svg>
+                            <IoLogInOutline />
                             Login
                         </button>
                     </fieldset>
                 </form>
- 
+
                 <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-t border-gray-300"></div>
@@ -93,14 +94,12 @@ const LoginPage = () => {
                         <span className="px-2 bg-white text-gray-500">or</span>
                     </div>
                 </div>
- 
-                <button className="w-full border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24">
-                        <text x="12" y="16" fontSize="14" fontWeight="bold" textAnchor="middle" fill="#1f2937">G</text>
-                    </svg>
+
+                <button onClick={handelGoogleSingin} className="w-full border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2">
+                    <FcGoogle />
                     Login with Google
                 </button>
- 
+
                 <div className="text-center mt-6">
                     <p className="text-gray-700 text-sm">
                         Don't have an account?{' '}
@@ -110,7 +109,7 @@ const LoginPage = () => {
                     </p>
                 </div>
             </div>
- 
+
             <a href="/" className="text-gray-700 hover:text-gray-900 font-semibold flex items-center gap-1">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />

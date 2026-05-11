@@ -1,23 +1,18 @@
 import dns from "node:dns";
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Navber from "@/component/shared/Navber";
-import Footer from "@/component/Footer";
 import { Toaster } from "react-hot-toast";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
+  weight:["400","500","600","700","800"]
+})
 export const metadata = {
   title: "QurbaniHat",
   description: "Livestock Booking Platform",
@@ -28,9 +23,9 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme='light'
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={` h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className={`min-h-full flex flex-col ${poppins.className}`}>
         <Navber></Navber>
         {children}
         <Toaster

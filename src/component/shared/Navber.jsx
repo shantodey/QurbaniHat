@@ -1,5 +1,5 @@
 'use client'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/og.png'
 import { signOut, useSession } from '@/lib/auth-client';
 
 import Image from "next/image";
@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 const Navber = () => {
     const { data: session, } = useSession()
     const user = session?.user;
-    const router=useRouter()
-    const handleSignOut = async() => {
+    const router = useRouter()
+    const handleSignOut = async () => {
         await signOut()
         router.push('/')
     }
@@ -17,7 +17,7 @@ const Navber = () => {
     return (
         <>
 
-            <div className=" max-lg:collapse bg-base-200  shadow-sm w-full rounded-md">
+            <div className=" max-lg:collapse  w-full rounded-md  shadow-soft sticky top-0 z-50">
                 <div className="container mx-auto">
                     <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
                     <label htmlFor="navbar-1-toggle" className="fixed inset-0 hidden max-lg:peer-checked:block"></label>
@@ -27,7 +27,7 @@ const Navber = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                             </label>
                             <button className="btn btn-ghost text-xl">
-                                <Image src={logo} alt='logo'></Image>
+                                <Image src={logo} alt='logo' height={100} width={250}></Image>
                             </button>
                         </div>
                         <div className="navbar-center hidden lg:flex">
@@ -60,8 +60,8 @@ const Navber = () => {
 
                     <div className="collapse-content lg:hidden z-1">
                         <ul className="menu">
-                            <li><button>Item 1</button></li>
-                            <li><button>Item 3</button></li>
+                            <li><button> <Link href={'/'}>Home</Link></button></li>
+                            <li><button><Link href={'/all-animal'}>All Animal</Link>  </button></li>
                         </ul>
                     </div>
                 </div>

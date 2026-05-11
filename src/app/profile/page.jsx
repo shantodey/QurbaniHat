@@ -1,7 +1,8 @@
 import EditProfile from "@/component/EditProfile";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
+import { FaAddressBook, FaCheck } from "react-icons/fa";
+import { IoBookmarksOutline, IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 function getInitials(name) {
   return name
     .trim()
@@ -45,12 +46,12 @@ const ProfilePage = async () => {
               <h2 className="text-xl font-medium">{user.name}</h2>
               <p className="text-sm text-base-content/60">{user.email}</p>
               <div className="badge badge-success badge-sm mt-1 gap-1">
-                ✓ Verified
+                <FaCheck /> Verified
               </div>
 
               <div className="flex gap-2 mt-3">
-               <EditProfile user={user}></EditProfile>
-                
+                <EditProfile user={user}></EditProfile>
+
               </div>
             </div>
           </div>
@@ -59,10 +60,11 @@ const ProfilePage = async () => {
         {/* Action Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: "🔖", title: "Saved animals",  sub: "Your bookmarked listings" },
-            { icon: "📅", title: "My bookings",    sub: "View & manage appointments" },
-            { icon: "🔔", title: "Notifications",  sub: "Alerts & updates" },
-            { icon: "⚙️", title: "Settings",       sub: "Account preferences" },
+            { icon: <IoBookmarksOutline />, title: "Saved animals", sub: "Your bookmarked listings" },
+            { icon: <FaAddressBook />, title: "My bookings", sub: "View & manage appointments" },
+            { icon: <IoNotificationsOutline />, title: "Notifications", sub: "Alerts & updates" },
+            {icon: <IoSettingsOutline />, title: "Settings", sub: "Account preferences"
+            },
           ].map(({ icon, title, sub }) => (
             <div
               key={title}

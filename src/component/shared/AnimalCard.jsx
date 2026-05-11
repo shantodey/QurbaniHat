@@ -1,55 +1,58 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CiLocationOn } from "react-icons/ci";
+import { FaShoppingCart } from "react-icons/fa";
+import BookAnimal from "../BookAnimal";
+
 const AnimalCard = ({ animal }) => {
-  const { name, price, type, weight, image, location, breed,id } = animal;
+  const { name, price, type, weight, image, location, breed, id } = animal;
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] bg-white shadow-2xl transition-all duration-300 hover:-translate-y-1 ">
-      <figure className="relative aspect-[4/3] overflow-hidden">
-        <div className="absolute left-4 top-4 z-10 rounded-full bg-white/20 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-md">
-          Large Animal
+    <div className="group flex h-full flex-col overflow-hidden rounded-[24px] bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+      <figure className="relative h-[230px] overflow-hidden">
+        <div className="absolute right-4 top-4 z-10 rounded-full bg-[#0B3B2E] px-4 py-2 text-[11px] font-bold uppercase tracking-wide text-white shadow-md">
+          {type === "Cow" ? "Large Animal" : "Small Animal"}
         </div>
-        <Image
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          src={image}
-          alt={name}
-          height={150}
-          width={200}
-        />
+        <Image className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src={image}alt={name} height={400} width={500}/>
       </figure>
+
       <div className="flex flex-1 flex-col p-6">
-        <h2 className="mb-4 text-xl font-bold text-slate-800">{name}</h2>
+        <h2 className="mb-5 text-[25px] font-bold leading-tight text-[#032B22]">{name}</h2>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-500 font-medium">Type:</span>
+            <span className="font-bold text-[#032B22]">{type}</span>
+          </div>
 
-        <div className="mb-6 flex-1 space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Type:</span>
-            <span className="font-semibold text-slate-700">{type}</span>
+          <div className="flex items-center justify-between">
+            <span className="text-gray-500 font-medium">Breed:</span>
+            <span className="font-bold text-[#032B22]">
+              {breed}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Breed:</span>
-            <span className="font-semibold text-slate-700">{breed}</span>
+          <div className="flex items-center justify-between">
+            <span className="text-gray-500 font-medium">Weight:</span>
+            <span className="font-bold text-[#032B22]">{weight}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Weight:</span>
-            <span className="font-semibold text-slate-700">{weight}</span>
-          </div>
-          <div className="flex items-center gap-1 pt-1 text-sm text-gray-400">
-            <CiLocationOn className="text-lg" />
-            <span>{location}</span>
+
+          <div className="flex items-center gap-2 pt-2 text-gray-400">
+            <CiLocationOn className="text-xl" />
+            <span className="text-sm"> {location} </span>
           </div>
         </div>
 
-        <div className="mt-auto pt-4 border-t border-gray-50">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Price</p>
-          <div className="flex items-end justify-between">
-            <span className="text-2xl font-bold text-slate-800">৳ {price}</span>
-            <Link href={`/all-animal/${id}`} className="text-sm font-bold text-slate-800 hover:underline">
-              View Details
-            </Link>
+        <div className="mt-6 border-t border-gray-100 pt-5">
+          <p className="text-[11px] font-bold uppercase tracking-[3px] text-gray-400"> Price</p>
+          <div className="mt-2 flex items-center justify-between">
+            <h3 className="text-2xl font-extrabold text-[#032B22]"> ৳{price} </h3>
+            <Link href={`/all-animal/${id}`}
+              className="text-sm font-bold text-[#032B22] underline underline-offset-4 hover:text-green-700">View Details</Link>
           </div>
         </div>
+
+        
+
       </div>
+
     </div>
   );
 };
