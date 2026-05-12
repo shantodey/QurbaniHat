@@ -5,9 +5,12 @@ import React from 'react';
 import Image from 'next/image';
 import Logo from '@/assets/og.png'
 import { FcGoogle } from 'react-icons/fc';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+
 const RegisterPage = () => {
 
-
+  const router = useRouter();
     const handelSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -25,11 +28,12 @@ const RegisterPage = () => {
             {
 
                 onSuccess: (ctx) => {
-                    alert('its work ')
+                     toast.success(' Successfully registered your account')
+                    router.push("/login");
                 },
                 onError: (ctx) => {
-                    // display the error message
-                    alert(ctx.error.message);
+                   toast.error(ctx.error.message)
+                   
                 },
             }
         );

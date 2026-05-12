@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Logo from '@/assets/og.png'
 import { IoLogInOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
+import { reddit } from 'better-auth';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
     const handelSubmit = async (e) => {
@@ -12,7 +14,6 @@ const LoginPage = () => {
         const formData = new FormData(e.target)
         const userData = Object.fromEntries(formData)
         console.log(userData);
-
         const { data, error } = await authClient.signIn.email(
             {
                 email: userData.email,
@@ -22,11 +23,10 @@ const LoginPage = () => {
             {
 
                 onSuccess: (ctx) => {
-                    alert('its work ')
+                    toast.success(' Login successful')
                 },
                 onError: (ctx) => {
-                    // display the error message
-                    alert(ctx.error.message);
+                     toast.error(ctx.error.message)
                 },
             }
         );
