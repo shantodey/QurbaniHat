@@ -1,6 +1,8 @@
 import EditProfile from "@/component/EditProfile";
 import { auth } from "@/lib/auth";
+
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { FaAddressBook, FaCheck } from "react-icons/fa";
 import { IoBookmarksOutline, IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 function getInitials(name) {
@@ -16,18 +18,15 @@ const ProfilePage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
   const user = session?.user;
-
   if (!user) {
-    return <div>Not logged in</div>;
+    redirect("/login")
+    return
   }
 
   return (
     <div className="min-h-screen bg-base-200 p-6">
       <div className="max-w-2xl mx-auto space-y-4">
-
-        {/* Profile Hero Card */}
         <div className="card bg-base-100 shadow-sm border border-base-300">
           <div className="card-body flex flex-row items-center gap-5">
             <div className="avatar placeholder">
@@ -45,19 +44,11 @@ const ProfilePage = async () => {
             <div className="flex-1">
               <h2 className="text-xl font-medium">{user.name}</h2>
               <p className="text-sm text-base-content/60">{user.email}</p>
-              <div className="badge badge-success badge-sm mt-1 gap-1">
-                <FaCheck /> Verified
-              </div>
-
-              <div className="flex gap-2 mt-3">
-                <EditProfile user={user}></EditProfile>
-
-              </div>
+              <div className="badge badge-success badge-sm mt-1 gap-1"><FaCheck /> Verified</div>
+              <div className="flex gap-2 mt-3"><EditProfile user={user}></EditProfile></div>
             </div>
           </div>
         </div>
-
-        {/* Action Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { icon: <IoBookmarksOutline />, title: "Saved animals", sub: "Your bookmarked listings" },
@@ -66,8 +57,7 @@ const ProfilePage = async () => {
             {icon: <IoSettingsOutline />, title: "Settings", sub: "Account preferences"
             },
           ].map(({ icon, title, sub }) => (
-            <div
-              key={title}
+            <div key={title}
               className="card bg-base-100 border border-base-300 shadow-sm hover:bg-base-200 cursor-pointer transition-colors"
             >
               <div className="card-body p-4">
