@@ -8,11 +8,11 @@ A modern and responsive livestock booking platform where users can explore halal
 
 ## 🌐 Live Site
 
-- **Live URL:** QurbaniHat Live Site
+- **Live URL:** [QurbaniHat Live Site](https://scd-qurbanihat.vercel.app/)
 
 ## 📂 GitHub Repository
 
-- **Repository:** QurbaniHat GitHub Repo
+- **Repository:** [QurbaniHat GitHub Repo](https://github.com/shantodey/QurbaniHat)
 
 ## 📸 Preview
 
@@ -74,6 +74,12 @@ This project was created as part of Assignment Category: category-A8-Pineapple.
 | mongodb | MongoDB database driver |
 | react-hot-toast | Toast notifications |
 | react-icons | SVG icons |
+| @heroui/styles | UI component styles |
+| motion | Animation library |
+| @tailwindcss/postcss | PostCSS plugin for Tailwind CSS |
+| babel-plugin-react-compiler | React compiler plugin |
+| eslint | Linting utility |
+| eslint-config-next | ESLint configuration for Next.js |
 
 ---
 
