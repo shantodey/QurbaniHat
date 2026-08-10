@@ -239,7 +239,7 @@ This project can be deployed using Vercel or another compatible hosting provider
 
 **Shanto Dey**
 
-GitHub: shantodey1
+GitHub: shantodey
 
 
 ---

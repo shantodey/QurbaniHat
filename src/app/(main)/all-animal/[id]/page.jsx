@@ -1,19 +1,26 @@
 import BookAnimal from '@/component/BookAnimal';
-import { auth } from '@/lib/auth';
 import { allAnimalId } from '@/lib/data';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import React from 'react';
 import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShieldAlt, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const animal = await allAnimalId(id);
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
 
+  // Forward the browser's session cookie to the Express backend
+  const reqHeaders = await headers();
+  const cookie = reqHeaders.get('cookie') ?? '';
+  const res = await fetch(`${BACKEND_URL}/api/auth/get-session`, {
+    headers: { cookie },
+    cache: 'no-store',
+  });
+  const session = res.ok ? await res.json() : null;
   const user = session?.user;
+
 
   const categoryColor = animal.category === 'Large Animal'
     ? 'badge-warning'

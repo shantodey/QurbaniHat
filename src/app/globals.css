@@ -1,9 +1,52 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
+@layer base {
+  :root {
+    --background: #FAFAF7;
+    --foreground: #0F172A;
 
+    --primary: #0B3B2E;
+    --primary-foreground: #F0F7F4;
 
+    --secondary: #1A5C46;
+    --secondary-foreground: #F0F7F4;
 
-.backgorun__green{
-    background-color: #013023;
+    --accent: #D4AF37;
+    --accent-foreground: #0F172A;
+
+    --card: #FFFFFF;
+    --card-foreground: #0F172A;
+
+    --muted: #F1F5F0;
+    --muted-foreground: #6B7280;
+
+    --border: #E4EDE8;
+    --input-bg: #F5F8F5;
+
+    --destructive: #C0392B;
+    --destructive-foreground: #FFFFFF;
+
+    --radius: 0.75rem;
+
+    --font-display: var(--font-playfair);
+    --font-body: var(--font-poppins);
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display), Georgia, serif;
+  }
+}
+
+.backgorun__green {
+  background-color: #013023;
 }

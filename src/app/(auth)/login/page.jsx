@@ -5,15 +5,14 @@ import Image from 'next/image';
 import Logo from '@/assets/og.png'
 import { IoLogInOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
-import { reddit } from 'better-auth';
 import toast from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+
 
 const LoginPage = () => {
-    const handelSubmit = async (e) => {
-        e.preventDefault()
-        const formData = new FormData(e.target)
-        const userData = Object.fromEntries(formData)
-        console.log(userData);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = async (userData) => {
         const { data, error } = await authClient.signIn.email(
             {
                 email: userData.email,
@@ -21,34 +20,34 @@ const LoginPage = () => {
                 callbackURL: "/"
             },
             {
-
                 onSuccess: (ctx) => {
-                    toast.success(' Login successful')
+                    toast.success('Login successful');
                 },
                 onError: (ctx) => {
-                     toast.error(ctx.error.message)
+                    toast.error(ctx.error.message);
                 },
             }
         );
+    };
 
-    }
-     const handelGoogleSingin = async() => {
-            const data = await authClient.signIn.social({
-                provider: "google",
-            });
-        }
+    const handelGoogleSingin = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mb-6">
                 <div className="text-center">
                     <div className="flex justify-center">
-                        <Image src={Logo} height={100} alt='logo'></Image>
+                        <Image src={Logo} height={100} width={220} priority alt='logo' />
                     </div>
                 </div>
 
                 <h2 className="text-center text-gray-600 mb-8 text-lg">Login to your account</h2>
 
-                <form className="space-y-5" onSubmit={handelSubmit}>
+                <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
                     <fieldset>
                         <legend className="sr-only">Login Form</legend>
 
@@ -58,10 +57,19 @@ const LoginPage = () => {
                             </label>
                             <input
                                 type="email"
-                                name='email'
                                 placeholder="you@example.com"
+                                {...register('email', {
+                                    required: 'Email address is required',
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: 'Invalid email address'
+                                    }
+                                })}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />
+                            {errors.email && (
+                                <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+                            )}
                         </div>
 
                         <div>
@@ -70,10 +78,19 @@ const LoginPage = () => {
                             </label>
                             <input
                                 type="password"
-                                name='password'
                                 placeholder="••••••••"
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: {
+                                        value: 6,
+                                        message: 'Password must be at least 6 characters'
+                                    }
+                                })}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
                             />
+                            {errors.password && (
+                                <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+                            )}
                         </div>
 
                         <button

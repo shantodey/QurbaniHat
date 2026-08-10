@@ -1,118 +1,171 @@
-'use client'
-import { useSession } from '@/lib/auth-client';
-import Image from 'next/image';
-import logo from '@/assets/og.png'
-import toast from 'react-hot-toast';
-import { FaShoppingCart, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle, FaTimes } from 'react-icons/fa';
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSession } from "@/lib/auth-client";
+import Image from "next/image";
+import logo from "@/assets/og.png";
+import toast from "react-hot-toast";
+import { ShoppingCart, User, Mail, Phone, MapPin, CheckCircle } from "lucide-react";
+import { useForm } from "react-hook-form";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const BookAnimal = ({ animal }) => {
-  const { data: session, } = useSession() 
-  const user=session?.user;   
-    const conFormBooking=()=>{
-        toast.success(' Booking Confron')
-        document.getElementById('booking_modal').close()
+  const { data: session } = useSession();
+  const user = session?.user;
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const displayName = animal.name || animal.titel;
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+      phone: "",
+      address: "",
+    },
+  });
+
+  useEffect(() => {
+    if (open) {
+      reset({
+        name: user?.name || "",
+        email: user?.email || "",
+        phone: "",
+        address: "",
+      });
     }
-    return (
-        <>
-            <button
-                onClick={() => document.getElementById('booking_modal').showModal()}
-                className="btn btn-success btn-lg w-full text-white text-base font-bold gap-2 rounded-xl"
+  }, [open, user, reset]);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    await new Promise((r) => setTimeout(r, 800));
+    toast.success("Booking confirmed!");
+    setLoading(false);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Button
+        size="lg"
+        className="w-full gap-2"
+        onClick={() => setOpen(true)}
+      >
+        <ShoppingCart className="h-5 w-5" />
+        Book This Animal
+      </Button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="p-0 overflow-hidden max-w-md">
+          <div className="bg-[#0B3B2E] px-6 py-8 text-center">
+            <Image src={logo} alt="logo" height={48} width={160} priority className="mx-auto mb-4" />
+            <DialogTitle className="text-white text-lg font-semibold">
+              Confirm Your Booking
+            </DialogTitle>
+            <DialogDescription className="mt-1.5 text-white/70 text-sm">
+              Complete the form to reserve{" "}
+              <span className="font-semibold text-[#D4AF37]">{displayName}</span>
+            </DialogDescription>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-foreground)]">
+                  <User className="h-3.5 w-3.5 text-[#0B3B2E]" /> Full Name
+                </label>
+                <Input
+                  {...register("name", { required: "Name is required" })}
+                  placeholder="Your name"
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-xs">{errors.name.message}</p>
+                )}
+              </div>
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-foreground)]">
+                  <Mail className="h-3.5 w-3.5 text-[#0B3B2E]" /> Email
+                </label>
+                <Input
+                  type="email"
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email",
+                    },
+                  })}
+                  placeholder="Email"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs">{errors.email.message}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-foreground)]">
+                <Phone className="h-3.5 w-3.5 text-[#0B3B2E]" /> Phone
+              </label>
+              <Input
+                type="tel"
+                {...register("phone", { required: "Phone number is required" })}
+                placeholder="+880 1XXX XXXXXX"
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-xs">{errors.phone.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-foreground)]">
+                <MapPin className="h-3.5 w-3.5 text-[#0B3B2E]" /> Delivery Address
+              </label>
+              <textarea
+                {...register("address", { required: "Delivery address is required" })}
+                placeholder="Your full delivery address..."
+                rows={3}
+                className="w-full rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 py-2.5 text-sm resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3B2E]"
+              />
+              {errors.address && (
+                <p className="text-red-500 text-xs">{errors.address.message}</p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between rounded-xl bg-[var(--muted)] px-5 py-3">
+              <span className="text-sm text-[var(--muted-foreground)]">Total Amount</span>
+              <span className="text-2xl font-black text-[#032B22]">
+                ৳{Number(animal.price).toLocaleString()}
+              </span>
+            </div>
+
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full gap-2"
+              disabled={loading}
             >
-                <FaShoppingCart className="w-5 h-5" />
-                Book This Animal
-            </button>
-
-            <dialog id="booking_modal" className="modal">
-                <div className="modal-box p-0 overflow-hidden max-w-md rounded-3xl">
-
-                    <div className="bg-[#1a3a2a] text-white px-6 pt-8 pb-6 text-center relative">
-                        <form method="dialog">
-                            <button className="btn btn-circle btn-sm absolute top-4 right-4 bg-white/20 hover:bg-white/30 border-none text-white">
-                                <FaTimes className="w-3 h-3" />
-                            </button>
-                        </form>
-
-                        <div className="flex items-center justify-center gap-2 mb-4">
-                            <Image  src={logo}  alt='logo'  height={100} width={220}  priority /> 
-                        </div>
-
-                        <p className="text-white/80 text-sm leading-snug">
-                            Complete the form to confirm your <br /> booking for{' '}
-                            <span className="text-white font-semibold">{animal.name}</span>
-                        </p>
-                    </div>
-
-
-                    <div className="bg-white px-6 py-6 flex flex-col gap-4">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="flex flex-col gap-1">
-                                <label className="text-xs font-bold text-base-content flex items-center gap-1">
-                                    <FaUser className="text-[#1a3a2a]" /> Full Name
-                                </label>
-                                <input
-                                    type="text"
-                                    defaultValue={user?.name}
-                                    placeholder="Your full name"
-                                    className="input input-bordered input-sm bg-[#f5f5f0] border-none rounded-xl w-full focus:outline-none"
-                                />
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <label className="text-xs font-bold text-base-content flex items-center gap-1">
-                                    <FaEnvelope className="text-[#1a3a2a]" /> Email Address
-                                </label>
-                                <input
-                                    type="email"
-                                     defaultValue={user?.email}
-                                    className="input input-bordered input-sm bg-[#f5f5f0] border-none rounded-xl w-full focus:outline-none"
-                                />
-                            </div>
-                        </div>
-
-
-                        <div className="flex flex-col gap-1">
-                            <label className="text-xs font-bold text-base-content flex items-center gap-1" >
-                                <FaPhone className="text-[#1a3a2a]" /> Phone Number
-                            </label>
-                            <input
-                                type="tel"
-                                placeholder="+880 1XXX XXXXXX"
-                                className="input input-bordered bg-[#f5f5f0] border-none rounded-xl w-full focus:outline-none"
-                            />
-                        </div>
-
-
-                        <div className="flex flex-col gap-1">
-                            <label className="text-xs font-bold text-base-content flex items-center gap-1">
-                                <FaMapMarkerAlt className="text-[#1a3a2a]" /> Delivery Address
-                            </label>
-                            <textarea
-                                placeholder="Your full delivery address..."
-                                rows={3}
-                                className="textarea bg-[#f5f5f0] border-none rounded-xl w-full focus:outline-none resize-none"
-                            />
-                        </div>
-
-
-                        <div className="flex items-center justify-between bg-[#f5f5f0] rounded-2xl px-5 py-3">
-                            <span className="text-sm text-base-content/60">Total Amount:</span>
-                            <span className="text-2xl font-black text-base-content">
-                                ৳{animal.price}
-                            </span>
-                        </div>
-
-                        <button  onClick={conFormBooking} className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none">
-                            <FaCheckCircle className="w-5 h-5" />
-                            Confirm Booking
-                        </button>
-                    </div>
-                </div>
-
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
-        </>
-    );
+              <CheckCircle className="h-5 w-5" />
+              {loading ? "Processing..." : "Confirm Booking"}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 };
 
 export default BookAnimal;
