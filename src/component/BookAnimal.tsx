@@ -19,7 +19,7 @@ const BookAnimal = ({ animal }) => {
   const [loading, setLoading] = useState(false);
   const displayName = animal.title || animal.name;
   
-  // animal Object-এর Primary Key হলো `id`
+
   const { id: productid, title, breed, price, weight } = animal;
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm({

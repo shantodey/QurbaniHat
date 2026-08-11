@@ -15,6 +15,18 @@ export interface Product {
   location?: string;
 }
 
+export interface AddProductPayload {
+  title: string;
+  type: string;
+  breed: string;
+  price: number;
+  weight: number;
+  age: number;
+  description: string;
+  image: string;
+  category: string;
+}
+
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getProducts(): Promise<Product[]> {
@@ -39,7 +51,16 @@ export async function getProductById(id: string | number): Promise<Product | nul
   }
 }
 
-export async function addOrder(data) {
+export async function addOrder(data: {
+  userid: string;
+  productid: string;
+  name: string;
+  phone: string;
+  title: string;
+  breed: string;
+  price: number;
+  weight: number;
+}) {
   const req = await fetch(`${BACKEND_URL}/order`, {
     method: "POST",
     headers: {
@@ -48,7 +69,7 @@ export async function addOrder(data) {
     body: JSON.stringify({
       userid: data.userid,
       productid: data.productid,
-      username:data.name,
+      username: data.name,
       userphone: Number(data.phone),
       ordertitel: data.title,
       orderbreed: data.breed,
@@ -60,3 +81,27 @@ export async function addOrder(data) {
   return res;
 }
 
+export async function getOrderData() {
+  try {
+    const res = await fetch(`${BACKEND_URL}/order`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const result = await res.json();
+    return result.data || [];
+  } catch (error) {
+    console.error("Failed to fetch order:", error);
+    return [];
+  }
+}
+
+export async function addProduct(data: AddProductPayload) {
+  const res = await fetch(`${BACKEND_URL}/products`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const result = await res.json();
+  if (!res.ok || result.success === false) {
+    throw new Error(result.message || "Failed to add product");
+  }
+  return result;
+}
