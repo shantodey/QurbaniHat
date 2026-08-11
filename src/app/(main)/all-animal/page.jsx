@@ -5,7 +5,7 @@ const Page = async () => {
   const products = await getProducts();
   const allAnimalsData = products.map((item) => ({
     ...item,
-    name: item.name || item.titel,
+    name: item.name || item.title,
     location: item.location || "Dhaka",
   }));
 

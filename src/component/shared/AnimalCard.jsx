@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const AnimalCard = ({ animal }) => {
-  const { name, price, type, weight, breed, image, location, id, titel } = animal;
-  const displayName = name || titel;
+  const { name, price, type, weight, breed, image, location, id, title } = animal;
+  const displayName = name || title;
   const isLarge = type === "Cow" || type === "Bull";
 
   return (
@@ -22,18 +22,8 @@ const AnimalCard = ({ animal }) => {
     >
       <Card className="group flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-xl">
         <div className="relative h-56 overflow-hidden">
-          <motion.div
-            whileHover={{ scale: 1.06 }}
-            transition={{ duration: 0.4 }}
-            className="h-full w-full"
-          >
-            <Image
-              src={image}
-              alt={displayName}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
-            />
+          <motion.div whileHover={{ scale: 1.06 }} transition={{ duration: 0.4 }} className="h-full w-full">
+            <Image src={image} alt={displayName} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw" />
           </motion.div>
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

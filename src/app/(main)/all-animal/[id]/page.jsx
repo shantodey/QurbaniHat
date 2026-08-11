@@ -10,14 +10,13 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 const Page = async ({ params }) => {
   const { id } = await params;
   const animal = await allAnimalId(id);
-
-  // Forward the browser's session cookie to the Express backend
   const reqHeaders = await headers();
   const cookie = reqHeaders.get('cookie') ?? '';
   const res = await fetch(`${BACKEND_URL}/api/auth/get-session`, {
     headers: { cookie },
     cache: 'no-store',
   });
+
   const session = res.ok ? await res.json() : null;
   const user = session?.user;
 
@@ -113,7 +112,6 @@ const Page = async ({ params }) => {
             {user?
             <BookAnimal  animal={animal}></BookAnimal>
             :
-
             <Link className="btn bg-[#1a3a2a] hover:bg-[#142e22] text-white btn-lg w-full rounded-2xl font-bold text-base gap-2 border-none" href={'/login'}><FaCheckCircle className="w-5 h-5" />Log IN to  Confirm Booking</Link>
           }
 

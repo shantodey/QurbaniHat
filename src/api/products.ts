@@ -2,7 +2,7 @@
 
 export interface Product {
   id: string;
-  titel?: string;
+  title?: string;
   name?: string;
   type: string;
   breed: string;
@@ -38,3 +38,25 @@ export async function getProductById(id: string | number): Promise<Product | nul
     return null;
   }
 }
+
+export async function addOrder(data) {
+  const req = await fetch(`${BACKEND_URL}/order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userid: data.userid,
+      productid: data.productid,
+      username:data.name,
+      userphone: Number(data.phone),
+      ordertitel: data.title,
+      orderbreed: data.breed,
+      orderprice: Number(data.price),
+      orderweight: Number(data.weight),
+    }),
+  });
+  const res = await req.json();
+  return res;
+}
+
