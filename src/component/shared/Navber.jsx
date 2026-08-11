@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import logo from "@/assets/og.png";
+import { UserRound } from "lucide-react";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -61,7 +62,7 @@ export default function Navbar() {
           <div className="hidden items-center gap-3 lg:flex">
             {user ? (
               <DropdownMenu>
-                <DropdownMenuTrigger aschild>
+                <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="text-white hover:bg-white/10 gap-1.5">
                     <span className="max-w-[120px] truncate capitalize">{user.name}</span>
                     <ChevronDown className="h-3.5 w-3.5 opacity-70" />
@@ -70,10 +71,16 @@ export default function Navbar() {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem aschild>
+                  <DropdownMenuItem asChild>
                     <Link href="/dashboard" className="flex items-center gap-2">
                       <LayoutDashboard className="h-4 w-4 text-[#0B3B2E]" />
                       Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem >
+                   <Link href="/profile" className="flex items-center gap-2">
+                      <UserRound  className="h-4 w-4 text-[#0B3B2E]" />
+                      Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -88,10 +95,10 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="ghost" className="text-white hover:bg-white/10" aschild>
+                <Button variant="ghost" className="text-white hover:bg-white/10">
                   <Link href="/login">Login</Link>
                 </Button>
-                <Button variant="accent" aschild>
+                <Button variant="accent">
                   <Link href="/register">Register</Link>
                 </Button>
               </>
@@ -125,10 +132,10 @@ export default function Navbar() {
               </>
             ) : (
               <div className="flex gap-2 pt-2">
-                <Button variant="ghost" className="flex-1 text-white hover:bg-white/10" aschild>
+                <Button variant="ghost" className="flex-1 text-white hover:bg-white/10">
                   <Link href="/login" onClick={() => setMobileOpen(false)}>Login</Link>
                 </Button>
-                <Button variant="accent" className="flex-1" aschild>
+                <Button variant="accent" className="flex-1">
                   <Link href="/register" onClick={() => setMobileOpen(false)}>Register</Link>
                 </Button>
               </div>

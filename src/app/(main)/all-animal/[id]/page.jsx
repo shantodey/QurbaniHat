@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { FaMapMarkerAlt, FaWeightHanging, FaCalendarAlt, FaDna, FaShieldAlt, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Page = async ({ params }) => {
   const { id } = await params;

@@ -63,12 +63,12 @@ const HeroSection = () => {
               transition={{ delay: 0.6, duration: 0.7 }}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <Button size="lg" asChild className="gap-2">
+              <Button size="lg" className="gap-2">
                 <Link href="/all-animal">
                   Browse Animals <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline">
                 <Link href="/all-animal">Qurbani Tips</Link>
               </Button>
             </motion.div>

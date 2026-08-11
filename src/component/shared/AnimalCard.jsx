@@ -70,7 +70,7 @@ const AnimalCard = ({ animal }) => {
                 ৳{Number(price).toLocaleString()}
               </p>
             </div>
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm">
               <Link href={`/all-animal/${id}`}>View Details</Link>
             </Button>
           </div>

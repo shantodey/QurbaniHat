@@ -2,6 +2,7 @@
 
 import { useSession } from "@/lib/auth-client";
 import { LayoutDashboard, ShoppingBag, Store, PackagePlus } from "lucide-react";
+import Image from "next/image";
 
 type Tab = "purchases" | "sales" | "post";
 
@@ -11,8 +12,9 @@ interface DashboardHeaderProps {
 }
 
 export default function DashboardHeader({ activeTab, onTabChange }: DashboardHeaderProps) {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const user = session?.user;
+  const isLoading = isPending;
 
   const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
     { key: "purchases", label: "Purchases", icon: <ShoppingBag className="h-3.5 w-3.5" /> },
@@ -23,14 +25,27 @@ export default function DashboardHeader({ activeTab, onTabChange }: DashboardHea
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B3B2E]">
-          <LayoutDashboard className="h-5 w-5 text-[#D4AF37]" />
+        <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-[#0B3B2E]">
+          {user?.image ? (
+            <Image
+              src={user.image}
+              alt={user.name ?? "User avatar"}
+              fill
+              sizes="40px"
+              unoptimized
+              className="object-cover"
+            />
+          ) : (
+            <LayoutDashboard className="h-5 w-5 text-[#D4AF37]" />
+          )}
         </div>
         <div>
           <h1 className="text-2xl font-bold text-[#032B22]">
             {user?.name || "Dashboard"}
           </h1>
-          <p className="text-xs text-[var(--muted-foreground)]">{user?.email}</p>
+          <p className="text-xs text-[var(--muted-foreground)]">
+            {isLoading ? "Loading..." : user?.email}
+          </p>
         </div>
       </div>
 
